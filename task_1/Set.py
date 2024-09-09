@@ -88,7 +88,7 @@ class Set:
         self.first_node = None
         return 0
 
-    def __add__(self, other):
+    def __add__(self, other): # Union
         if self.first_node is None:
             if other.first_node is None:
                 return Set()
@@ -129,7 +129,7 @@ class Set:
                 node_a = node_a.next_node
                 node_n = node_n.next_node
 
-    def __mul__(self, other):
+    def __mul__(self, other): # Intersection
         if self.first_node is None:
             return Set()
         elif other.first_node is None:
@@ -175,4 +175,114 @@ class Set:
                     node_a = node_a.next_node
                     if node_a is None:
                         return new_set
-    
+
+    def __sub__(self, other): # SetDifference
+        if self.first_node is None:
+            return Set()
+        elif other.first_node is None:
+            return copy.deepcopy(self)
+
+        node_a = self.first_node
+        node_b = other.first_node
+        new_set = Set()
+
+        # subtract to get first element
+        while new_set.first_node is None:
+            if node_a.value == node_b.value:
+                node_a = node_a.next_node
+                node_b = node_b.next_node
+                if node_b is None or node_a is None:
+                    return new_set
+            else:
+                if node_a.value > node_b.value:
+                    node_b = node_b.next_node
+                    if node_b is None:
+                        return copy.deepcopy(self)
+                else:
+                    new_set.first_node = Node(node_a.value)
+                    node_a = node_a.next_node
+                    if node_a is None:
+                        return new_set
+
+        node_n = new_set.first_node
+        # subtract to get other elements
+        while True:
+            if node_a.value == node_b.value:
+                node_a = node_a.next_node
+                node_b = node_b.next_node
+                if node_b is None or node_a is None:
+                    return new_set
+            else:
+                if node_a.value > node_b.value:
+                    node_b = node_b.next_node
+                    if node_b is None:
+                        while node_a is not None:
+                            node_n.next_node = Node(node_a.value)
+                            node_n = node_n.next_node
+                            node_a = node_a.next_node
+                        return new_set
+                else:
+                    node_n.next_node = Node(node_a.value)
+                    node_n = node_n.next_node
+                    node_a = node_a.next_node
+                    if node_a is None:
+                        return new_set
+
+    def __truediv__(self, other): #SymDifference
+        if self.first_node is None:
+            return copy.deepcopy(other)
+        elif other.first_node is None:
+            return copy.deepcopy(self)
+
+        node_a = self.first_node
+        node_b = other.first_node
+        new_set = Set()
+
+        # sym_subtract to get first element
+        while new_set.first_node is None:
+            if node_a.value == node_b.value:
+                node_a = node_a.next_node
+                node_b = node_b.next_node
+                if node_b is None or node_a is None:
+                    return new_set
+            else:
+                if node_a.value > node_b.value:
+                    new_set.first_node = Node(node_b.value)
+                    node_b = node_b.next_node
+                else:
+                    new_set.first_node = Node(node_a.value)
+                    node_a = node_a.next_node
+
+        node_n = new_set.first_node
+        # sym_subtract to get other elements (up to the end of one of the sets)
+        while True:
+            if node_a.value == node_b.value:
+                node_a = node_a.next_node
+                node_b = node_b.next_node
+                if node_b is None or node_a is None:
+                    return new_set
+            else:
+                if node_a.value > node_b.value:
+                    new_set.first_node = Node(node_b.value)
+                    node_b = node_b.next_node
+                    if node_b is None:
+                        break
+                else:
+                    node_n.next_node = Node(node_a.value)
+                    node_n = node_n.next_node
+                    node_a = node_a.next_node
+                    if node_a is None:
+                        break
+
+        if node_a is None:
+            while not node_b is None:
+                node_n.next_node = Node(node_b.value)
+                node_n = node_n.next_node
+                node_b = node_b.next_node
+        elif node_b is None:
+            while not node_a is None:
+                node_n.next_node = Node(node_a.value)
+                node_n = node_n.next_node
+                node_a = node_a.next_node
+
+        return new_set
