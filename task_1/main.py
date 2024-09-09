@@ -7,5 +7,6 @@ def random_set(length, multiply_by, offset):
         set.insert(random()*multiply_by + offset)
     return set
 
+
 while True:
-    print(random_set(int(input("length>>>")), 1000, -500).contains)
+    print(str(random_set(int(input("length>>>")), 1000, -500)))

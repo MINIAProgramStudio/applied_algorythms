@@ -1,77 +1,67 @@
+class Node:
+    def __init__(self, value, next_node = None):
+        self.value = value
+        self.next_node = next_node
+
+    value = None
+    next_node = None
+
 class Set:
     def __init__(self, values = []):
         for value in values:
             self.insert(value)
 
-    contains = []
+    first_node = None
 
     def insert(self, value):
-
-        # if empty -- write value
-        if self.contains == []:
-            self.contains = [value]
+        if self.first_node is None:
+            self.first_node = Node(value)
             return 0
 
-        # if inserted value is less than the first value in list -- insert it, so it becomes the first value
-        if self.contains[0] > value:
-            self.contains.insert(0,value)
+        if value < self.first_node.value:
+            new_node = Node(value, self.first_node)
+            self.first_node = new_node
             return 0
 
-        # if inserted value is grater than the last value in list -- append it, so it becomes the last value
-        if self.contains[-1]< value:
-            self.contains.append(value)
-            return 0
+        if value == self.first_node.value:
+            return -1
 
-
-        # algoryhtm for binary search was snathced from Wikipedea
-        l = 0
-        r = len(self.contains)-1
+        selected_node = self.first_node
         while True:
-            if l > r:
-                self.contains.insert(l, value)
+            if selected_node.next_node is None:
+                new_node = Node(value)
+                selected_node.next_node = new_node
                 return 0
-            m = int((l+r)/2)
-            if self.contains[m] < value:
-                l = m+1
-            elif self.contains[m] > value:
-                r = m-1
-            else:
-                return -1 # value exists
-
-    def search(self, value):
-        # if empty -- fails
-        if self.contains == []:
-            return -1
-
-        # if greater than the last value -- fails
-        if self.contains[0] > value:
-            return -1
-
-        # if less than the first value -- fails
-        if self.contains[-1] < value:
-            return -1
-
-        l = 0
-        r = len(self.contains) - 1
-        while True:
-            if l > r:
-                self.contains.insert(l, value)
+            if selected_node.next_node.value == value:
                 return -1
-            m = int((l + r) / 2)
-            if self.contains[m] < value:
-                l = m + 1
-            elif self.contains[m] > value:
-                r = m - 1
+            elif value < selected_node.next_node.value:
+                new_node = Node(value, selected_node.next_node)
+                selected_node.next_node = new_node
+                return 0
+            selected_node = selected_node.next_node
+
+    def __str__(self):
+        output = []
+        selected_node = self.first_node
+        while True:
+            output.append(selected_node.value)
+            if selected_node.next_node is None:
+                return str(output)
             else:
-                return m  # value exists
+                selected_node = selected_node.next_node
 
-    def remove(self,value):
-        pos = self.search(value)
+    def delete(self, value):
+        if value < self.first_node.value:
+            return -1
+        if value == self.first_node.value:
+            self.first_node = self.first_node.next_node
 
-        if pos >= 0:
-            self.contains.pop(value)
-
-    def clear(self, value):
-        self.contains = []
-
-
+        selected_node = self.first_node
+        while True:
+            if selected_node.next_node is None:
+                return -1
+            elif selected_node.next_node.value == value:
+                selected_node.next_node = selected_node.next_node.next_node
+                return 0
+            else:
+                selected_node = selected_node.next_node
