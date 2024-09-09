@@ -1,3 +1,5 @@
+import copy
+
 class Node:
     def __init__(self, value, next_node = None):
         self.value = value
@@ -65,3 +67,112 @@ class Set:
                 return 0
             else:
                 selected_node = selected_node.next_node
+
+    def search(self, value):
+        if self.first_node is None:
+            return -1
+        if value < self.first_node.value:
+            return -1
+
+        selected_node = self.first_node
+        counter = 0
+        while True:
+            if value == selected_node:
+                return counter
+            elif selected_node.next_node is None:
+                return -1
+            else:
+                selected_node = selected_node.next_node
+
+    def clear(self):
+        self.first_node = None
+        return 0
+
+    def __add__(self, other):
+        if self.first_node is None:
+            if other.first_node is None:
+                return Set()
+            else:
+                return copy.deepcopy(other)
+        elif other.first_node is None:
+            if self.first_node is None:
+                return Set()
+            else:
+                return copy.deepcopy(self)
+
+        new_set = Set()
+        node_a = self.first_node
+        node_b = other.first_node
+        if node_a.value > node_b.value:
+            new_set.insert(node_b.value)
+            node_b = node_b.next_node
+        else:
+            new_set.insert(node_a.value)
+            node_a = node_a.next_node
+        node_n = new_set.first_node
+        while True:
+            if node_a is None:
+                while not node_b is None:
+                    node_n.next_node = Node(node_b.value)
+                    node_b = node_b.next_node
+            elif node_b is None:
+                while not node_a is None:
+                    node_n.next_node = Node(node_a.value)
+                    node_a = node_a.next_node
+
+            if node_a.value > node_b.value:
+                node_n.next_node = Node(node_b.value)
+                node_b = node_b.next_node
+                node_n = node_n.next_node
+            else:
+                node_n.next_node = Node(node_a.value)
+                node_a = node_a.next_node
+                node_n = node_n.next_node
+
+    def __mul__(self, other):
+        if self.first_node is None:
+            return Set()
+        elif other.first_node is None:
+            return Set()
+
+        new_set = Set()
+        node_a = self.first_node
+        node_b = other.first_node
+
+        # multiply to get first element
+        while new_set.first_node is None:
+            if node_a.value == node_b.value:
+                new_set.first_node = Node(node_a.value)
+                node_a = node_a.next_node
+                node_b = node_b.next_node
+                if node_b is None or node_a is None:
+                    return new_set
+            else:
+                if node_a.value > node_b.value:
+                    node_b = node_b.next_node
+                    if node_b is None:
+                        return new_set
+                else:
+                    node_a = node_a.next_node
+                    if node_a is None:
+                        return new_set
+
+        node_n = new_set.first_node
+        # multiply to get other elements
+        while True:
+            if node_a.value == node_b.value:
+                node_n.next_node = Node()
+                node_a = node_a.next_node
+                node_b = node_b.next_node
+                if node_b is None or node_a is None:
+                    return new_set
+            else:
+                if node_a.value > node_b.value:
+                    node_b = node_b.next_node
+                    if node_b is None:
+                        return new_set
+                else:
+                    node_a = node_a.next_node
+                    if node_a is None:
+                        return new_set
+    
