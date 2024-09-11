@@ -296,3 +296,12 @@ class Set:
             selected_node = selected_node.next_node
             counter+=1
         return counter
+
+    def to_list(self):
+        selected_node = self.first_node
+        output_list = []
+        while not selected_node is None:
+            output_list.append(selected_node.value)
+            selected_node = selected_node.next_node
+        return output_list
+
