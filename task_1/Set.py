@@ -286,3 +286,13 @@ class Set:
                 node_a = node_a.next_node
 
         return new_set
+
+    def __len__(self):
+        if self.first_node is None:
+            return 0
+        counter = 1
+        selected_node = self.first_node
+        while not selected_node is None:
+            selected_node = selected_node.next_node
+            counter+=1
+        return counter
