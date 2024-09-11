@@ -106,7 +106,7 @@ plt.show()
 '''
 
 powers = [i ** 2 for i in range(1, 11)]
-n_tests = 1000
+n_tests = 5000
 fig, ax = plt.subplots()
 result = UncleFester.simple_union_test(powers, n_tests)
 im = ax.imshow(result)
