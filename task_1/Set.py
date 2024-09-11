@@ -1,15 +1,17 @@
 import copy
 
+
 class Node:
-    def __init__(self, value, next_node = None):
+    def __init__(self, value, next_node=None):
         self.value = value
         self.next_node = next_node
 
     value = None
     next_node = None
 
+
 class Set:
-    def __init__(self, values = []):
+    def __init__(self, values=[]):
         for value in values:
             self.insert(value)
 
@@ -53,6 +55,8 @@ class Set:
                 selected_node = selected_node.next_node
 
     def delete(self, value):
+        if self.first_node is None:
+            return -1
         if value < self.first_node.value:
             return -1
         if value == self.first_node.value:
@@ -88,7 +92,7 @@ class Set:
         self.first_node = None
         return 0
 
-    def __add__(self, other): # Union
+    def __add__(self, other):  # Union
         if self.first_node is None:
             if other.first_node is None:
                 return Set()
@@ -129,7 +133,7 @@ class Set:
                 node_a = node_a.next_node
                 node_n = node_n.next_node
 
-    def __mul__(self, other): # Intersection
+    def __mul__(self, other):  # Intersection
         if self.first_node is None:
             return Set()
         elif other.first_node is None:
@@ -176,7 +180,7 @@ class Set:
                     if node_a is None:
                         return new_set
 
-    def __sub__(self, other): # SetDifference
+    def __sub__(self, other):  # SetDifference
         if self.first_node is None:
             return Set()
         elif other.first_node is None:
@@ -228,7 +232,7 @@ class Set:
                     if node_a is None:
                         return new_set
 
-    def __truediv__(self, other): #SymDifference
+    def __truediv__(self, other):  # SymDifference
         if self.first_node is None:
             return copy.deepcopy(other)
         elif other.first_node is None:
@@ -294,7 +298,7 @@ class Set:
         selected_node = self.first_node
         while not selected_node is None:
             selected_node = selected_node.next_node
-            counter+=1
+            counter += 1
         return counter
 
     def to_list(self):
@@ -304,4 +308,3 @@ class Set:
             output_list.append(selected_node.value)
             selected_node = selected_node.next_node
         return output_list
-
