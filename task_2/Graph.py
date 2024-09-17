@@ -72,7 +72,7 @@ class Oriented_Graph(Graph):
         self.matrix[start][stop] = False
         return 0
 
-class Weighted_Graph(Graph):
+class WeightedGraph(Graph):
     '''
     Non-oriented weighted graph
     '''
@@ -116,7 +116,7 @@ class Weighted_Graph(Graph):
         self.matrix[stop][start] = 0
         return 0
 
-class OrientedWightedGraph(Weighted_Graph):
+class OrientedWightedGraph(WeightedGraph):
     '''
     Oriented weighted graph
     '''
