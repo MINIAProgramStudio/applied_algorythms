@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[ukrainian]{babel}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\title{Прикладні алгоритми. Завдання 2, звіт}
+\author{Михайло Голуб}
+\usepackage{graphicx}
+\graphicspath{ {./img/} }
+\begin{document}
+\maketitle
+\newpage
+
+\textbf{Реалізація класу граф:}
+\\\indent
+Створено клас \textit{Graph} що при ініціалізації приймає на вхід матрицю ребер. Цей клас має наступні методи:
+\begin{itemize}
+\item[] \textbf{\textit{to\_ll}} -- повертає масив списків зв'язності;
+\item[] \textbf{\textit{clear}} -- встановлює усі клітинки матриці в False;
+\item[] \textbf{\textit{from\_ll}} -- створює нову матрицю зв'язності з масиву списків зв'язності;
+\item[] \textbf{\textit{add\_vertice}} -- додає одну колонку та один рядок в матрицю суміжності;
+\item[] \textbf{\textit{add\_edge}} -- встановлює відповідну пару клітинок в True;
+\item[] \textbf{\textit{remove\_vertice}} -- видаляє колонку та рядок з вказаним індексом;
+\item[] \textbf{\textit{remove\_edge}} -- встановлює відповідну пару клітинок в False.\\\\
+\end{itemize}
+
+\textbf{Реалізація інших класів:}\\\indent
+Клас \textit{OrientedGraph} є нащадком (не дитиною, від англ. inherit -- наслідувати / успадковувати) \textit{Graph} з перевизначенням додання та видалення ребер: значення встановлюється не для пари клітинок, а для однієї клітинки.\\\indent
+Клас \textit{WeightedGraph} є нащадком \textit{Graph} з перевизначенням методів: методи працюють не з булевими значеннями, а з числовими.\\\indent
+Клас \textit{OrientedWeightedGraph} є нащадком \textit{WeightedGraph} з перевизначенням додання та видалення ребер: значення встановлюється не для пари клітинок, а для однієї клітинки.\\\\\indent
+\textbf{Реалізація рандомізованих класів:}\\\indent
+Класи \textit{RandomGraph, RandomOrientedGraph, RandomWeightedGraph, RandomOrienedWeightedGraph} є нащадками відповідних класів з перевизначенням \textit{\_\_init\_\_}: створюється пуста (заповнена False) матриця суміжності потрібного розміру, і через неї проходить цикл що з вказаною ймовірністю записує True або випадкове число. Для того щоб в не орієнтованих графах кожне ребро було пройдено циклом лише один раз, ітератор другої координати працює від i до n, де i -- позиція ітератора першої координати та n -- кількість вершин. В орієнтованих графах обидва ітератори працюють від 0 до n
+\end{document}
