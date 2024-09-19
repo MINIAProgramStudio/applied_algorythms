@@ -1,4 +1,4 @@
-from Set import Set
+from LinkedList import LinkedList
 
 class Graph:
     '''
@@ -10,25 +10,27 @@ class Graph:
         if not len(matrix) == len(matrix[0]):
             Exception("Matrix is not square")
 
-    def to_lists(self):
+    def to_ll(self):
         lists = []
         for row in self.matrix:
-            lists.append([])
+            lists.append(LinkedList())
             for element_n in range(len(row)):
                 if row[element_n]:
-                    lists[-1].append(element_n)
+                    lists[-1].insert(element_n)
         return lists
 
     def clear(self):
         self.matrix = [[False]*self.size]*self.size
         return 0
 
-    def from_lists(self, lists):
+    def from_ll(self, lists):
         self.size = len(lists)
         new_matrix = [[False]*self.size]*self.size
         for list_n in range(len(lists)):
-            for i in range(len(lists[list_n])):
-                new_matrix[list_n][lists[list_n][i]] = True
+            selected_node = lists[list_n]
+            while selected_node is not None:
+                new_matrix[list_n][selected_node.value] = True
+                selected_node = selected_node.next_node
         self.matrix = new_matrix
         return 0
 
@@ -76,21 +78,23 @@ class WeightedGraph(Graph):
     '''
     Non-oriented weighted graph
     '''
-    def to_lists(self):
+    def to_ll(self):
         lists = []
         for row in self.matrix:
-            lists.append([])
+            lists.append(LinkedList())
             for element_n in range(len(row)):
                 if row[element_n]:
-                    lists[-1].append((element_n,row[element_n]))
+                    lists[-1].insert((element_n, row[element_n]))
         return lists
 
-    def from_lists(self, lists):
+    def from_ll(self, lists):
         self.size = len(lists)
-        new_matrix = [[0]*self.size]*self.size
+        new_matrix = [[0] * self.size] * self.size
         for list_n in range(len(lists)):
-            for i in range(len(lists[list_n])):
-                new_matrix[list_n][lists[list_n][i][0]] = lists[list_n][i][1]
+            selected_node = lists[list_n]
+            while selected_node is not None:
+                new_matrix[list_n][selected_node.value[0]] = selected_node.value[1]
+                selected_node = selected_node.next_node
         self.matrix = new_matrix
         return 0
 
