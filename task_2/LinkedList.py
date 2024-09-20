@@ -27,7 +27,7 @@ class LinkedList:
 
         selected_node = self.first_node
         while not selected_node is None:
-            if selected_node.next_node.value == value:
+            if selected_node.value == value:
                 return -1
             selected_node = selected_node.next_node
         new_node = Node(value, self.first_node)
