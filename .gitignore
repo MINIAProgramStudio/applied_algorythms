@@ -8,3 +8,9 @@ task_1/звіт.out
 task_1/звіт.synctex.gz
 task_1/__pycache__/Set.cpython-311.pyc
 /task_1/__pycache__
+task_2/звіт.out
+task_2/звіт.aux
+task_2/звіт.log
+task_2/__pycache__/RandomGraph.cpython-312.pyc
+task_2/__pycache__/LinkedList.cpython-312.pyc
+task_2/__pycache__/Graph.cpython-312.pyc

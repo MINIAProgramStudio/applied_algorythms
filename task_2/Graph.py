@@ -27,7 +27,7 @@ class Graph:
         self.size = len(lists)
         new_matrix = [[False]*self.size]*self.size
         for list_n in range(len(lists)):
-            selected_node = lists[list_n]
+            selected_node = lists[list_n].first_node
             while selected_node is not None:
                 new_matrix[list_n][selected_node.value] = True
                 selected_node = selected_node.next_node
@@ -91,7 +91,7 @@ class WeightedGraph(Graph):
         self.size = len(lists)
         new_matrix = [[0] * self.size] * self.size
         for list_n in range(len(lists)):
-            selected_node = lists[list_n]
+            selected_node = lists[list_n].first_node
             while selected_node is not None:
                 new_matrix[list_n][selected_node.value[0]] = selected_node.value[1]
                 selected_node = selected_node.next_node

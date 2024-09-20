@@ -11,7 +11,7 @@ class RandomGraph(Graph.Graph):
                     self.matrix[element_n][row_n] = True
 
 class RandomOrientedGraph(Graph.Oriented_Graph):
-    def __init__(self, n_vertices, probability, matrix):
+    def __init__(self, n_vertices, probability):
         super().__init__([[False]*n_vertices]*n_vertices)
         for row_n in range(self.size):
             for element_n in range(self.size):
