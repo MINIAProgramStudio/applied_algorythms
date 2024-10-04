@@ -83,7 +83,7 @@ class SkilledTester:
 
 UncleFester = SkilledTester()
 
-'''
+
 result = UncleFester.graph_new_vertice(1000,1,1000, 10)
 plt.plot(result[0],result[1])
 plt.show()
@@ -96,7 +96,7 @@ plt.show()
 result = UncleFester.graph_delete_vertice(1000,1000,1, -1)
 plt.plot(result[0],result[1])
 plt.show()
-'''
+
 fig, ax = plt.subplots()
 result = UncleFester.ll(100,10,100,10,0,101,10)
 im = ax.imshow(result[2])
