@@ -89,7 +89,7 @@ class WeightedGraph(Graph):
 
     def from_ll(self, lists):
         self.size = len(lists)
-        new_matrix = [[0] * self.size] * self.size
+        new_matrix = [[None] * self.size] * self.size
         for list_n in range(len(lists)):
             selected_node = lists[list_n].first_node
             while selected_node is not None:
@@ -99,7 +99,7 @@ class WeightedGraph(Graph):
         return 0
 
     def clear(self):
-        self.matrix = [[0]*self.size]*self.size
+        self.matrix = [[None]*self.size]*self.size
         return 0
 
     def add_vertice(self, repeat = 1):
@@ -107,7 +107,7 @@ class WeightedGraph(Graph):
             self.size+=1
             for row_n in range(len(self.matrix)):
                 self.matrix[row_n].append(0)
-            self.matrix.append([0]*self.size)
+            self.matrix.append([None]*self.size)
         return 0
 
     def add_edge(self, start, stop, weight=0):
@@ -116,8 +116,8 @@ class WeightedGraph(Graph):
         return 0
 
     def remove_edge(self, start, stop):
-        self.matrix[start][stop] = 0
-        self.matrix[stop][start] = 0
+        self.matrix[start][stop] = None
+        self.matrix[stop][start] = None
         return 0
 
 class OrientedWightedGraph(WeightedGraph):
@@ -129,5 +129,5 @@ class OrientedWightedGraph(WeightedGraph):
         return 0
 
     def remove_edge(self, start, stop):
-        self.matrix[start][stop] = 0
+        self.matrix[start][stop] = None
         return 0
