@@ -3,7 +3,10 @@ import UnionFindSetMeta
 
 class UnionFindHandler:
     def __init__(self, universum = None):
-        self.universum = universum
+        if universum is None:
+            self.universum = {}
+        else:
+            self.universum = universum
 
     def make_set(self, value):
         node = Node.Node(value)
@@ -23,10 +26,10 @@ class UnionFindHandler:
         if not value_2 in self.universum.keys():
             return -1
 
-        set_1 = self.universum[value_1]
-        set_2 = self.universum[value_2]
+        set_1 = self.universum[value_1].header
+        set_2 = self.universum[value_2].header
 
-        if set_1.size > set_2.size:
+        if set_1.size >= set_2.size:
             set_large = set_1
             set_small = set_2
         else:
@@ -48,3 +51,10 @@ class UnionFindHandler:
         else:
             set_large.root = set_small.root
             return set_large
+
+    def everything_is_one_set(self):
+        set = None
+        for value in self.universum.keys():
+            if (not set is None) and value.header != set:
+                return False
+        return True
