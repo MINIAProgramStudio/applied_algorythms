@@ -191,13 +191,8 @@ for i in range(len(matrix)):
 plt.show()
 '''
 
-x = list(range(1000,10001, 100))
+x = list(range(1000,2001, 100))
 y = [UncleFester.multi_test_precise(10,i,124750) for i in x]
 
-window = 5
-average_y = []
-for ind in range(len(y) - window + 1):
-    average_y.append(np.mean(y[ind:ind+window]))
-
-plt.plot(x[:-window+1], average_y)
+plt.plot(x, y)
 plt.show()
