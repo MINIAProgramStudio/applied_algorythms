@@ -1,78 +1,79 @@
 import copy
 
 
-class Node:
-    def __init__(self, value, next_node=None):
-        self.value = value
-        self.next_node = next_node
 
-    value = None
-    next_node = None
 
 
 class LinkedList:
+    class _Node:
+        def __init__(self, value, next_Node=None):
+            self.value = value
+            self.next_Node = next_Node
+
+        value = None
+        next_Node = None
     def __init__(self, values=[]):
         for value in values:
             self.insert(value)
 
-    first_node = None
+    first_Node = None
 
     def insert(self, value):
-        if self.first_node is None:
-            self.first_node = Node(value)
+        if self.first_Node is None:
+            self.first_Node = self._Node(value)
             return 0
 
-        if value == self.first_node.value:
+        if value == self.first_Node.value:
             return -1
 
-        selected_node = self.first_node
-        while not selected_node is None:
-            if selected_node.value == value:
+        selected_Node = self.first_Node
+        while not selected_Node is None:
+            if selected_Node.value == value:
                 return -1
-            selected_node = selected_node.next_node
-        new_node = Node(value, self.first_node)
-        self.first_node = new_node
+            selected_Node = selected_Node.next_Node
+        new_Node = self._Node(value, self.first_Node)
+        self.first_Node = new_Node
 
     def __str__(self):
         output = []
-        selected_node = self.first_node
+        selected_Node = self.first_Node
         while True:
-            output.append(selected_node.value)
-            if selected_node.next_node is None:
+            output.append(selected_Node.value)
+            if selected_Node.next_Node is None:
                 return str(output)
             else:
-                selected_node = selected_node.next_node
+                selected_Node = selected_Node.next_Node
 
     def delete(self, value):
-        if self.first_node is None:
+        if self.first_Node is None:
             return -1
-        if value == self.first_node.value:
-            self.first_node = self.first_node.next_node
+        if value == self.first_Node.value:
+            self.first_Node = self.first_Node.next_Node
 
-        selected_node = self.first_node
+        selected_Node = self.first_Node
         while True:
-            if selected_node.next_node is None:
+            if selected_Node.next_Node is None:
                 return -1
-            elif selected_node.next_node.value == value:
-                selected_node.next_node = selected_node.next_node.next_node
+            elif selected_Node.next_Node.value == value:
+                selected_Node.next_Node = selected_Node.next_Node.next_Node
                 return 0
             else:
-                selected_node = selected_node.next_node
+                selected_Node = selected_Node.next_Node
 
     def search(self, value):
-        if self.first_node is None:
+        if self.first_Node is None:
             return -1
 
-        selected_node = self.first_node
+        selected_Node = self.first_Node
         counter = 0
         while True:
-            if value == selected_node:
+            if value == selected_Node:
                 return counter
-            elif selected_node.next_node is None:
+            elif selected_Node.next_Node is None:
                 return -1
             else:
-                selected_node = selected_node.next_node
+                selected_Node = selected_Node.next_Node
 
     def clear(self):
-        self.first_node = None
+        self.first_Node = None
         return 0
