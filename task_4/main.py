@@ -192,8 +192,8 @@ for i in range(len(matrix)):
 plt.show()
 '''
 
-x = list(range(100,1001))
-y = [UncleFester.multi_test_precise(10,i,4000) for i in x]
+x = list(range(50,100))
+y = [UncleFester.multi_test_precise(1000,i,1000) for i in x]
 
 plt.plot(x, y)
 plt.show()
