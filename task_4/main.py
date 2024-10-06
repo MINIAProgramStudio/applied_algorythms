@@ -162,6 +162,7 @@ class SkilledTester:
         return total_time/n_tests
 
     def multi_test_precise(self, n_tests, n_vertices, probability):
+        print(n_vertices)
         total_time = 0
         for i in range(n_tests):
             total_time += self.precise_test(n_vertices,probability)
@@ -191,8 +192,8 @@ for i in range(len(matrix)):
 plt.show()
 '''
 
-x = list(range(1000,2001, 100))
-y = [UncleFester.multi_test_precise(10,i,124750) for i in x]
+x = list(range(100,1001))
+y = [UncleFester.multi_test_precise(10,i,4000) for i in x]
 
 plt.plot(x, y)
 plt.show()
