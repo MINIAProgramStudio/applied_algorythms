@@ -2,10 +2,11 @@ import RandomGraph
 import GraphAlgorythm
 import time
 import matplotlib.pyplot as plt
+import tqdm
 
 def test_matrixes(ver_range, p_percent_range, tests):
     graphs = []
-    for ver in ver_range:
+    for ver in tqdm.tqdm(ver_range):
         graphs.append([])
         for p in p_percent_range:
             graphs[-1].append([])
@@ -17,7 +18,7 @@ def test_matrixes(ver_range, p_percent_range, tests):
 
     dfs_map = []
     w_map = []
-    for row in graphs:
+    for row in tqdm.tqdm(graphs):
         dfs_map.append([])
         w_map.append([])
         for column in row:
@@ -38,9 +39,9 @@ def test_matrixes(ver_range, p_percent_range, tests):
             w_map[-1].append(w_time/tests)
     return (dfs_map, w_map)
 
-ver = range(5,25)
-p = range(10,101,10)
-result = test_matrixes(ver, p, 10)
+ver = [i**2 for i in range(3,25,3)]
+p = range(25,101,25)
+result = test_matrixes(ver, p, 1)
 
 fig, ax = plt.subplots()
 
@@ -52,4 +53,16 @@ ax.set_ylabel("vertices")
 for i in range(len(result[0])):
     for j in range(len(result[0][0])):
         text = ax.text(j, i, int(result[0][i][j] * 10**7) / 10, ha="center", va="center", color="w")
+plt.show()
+
+fig, ax = plt.subplots()
+
+im = ax.imshow(result[1])
+ax.set_xlabel("probability")
+ax.set_xticks(range(len(list(p))), labels=p)
+ax.set_yticks(range(len(list(ver))), labels=ver)
+ax.set_ylabel("vertices")
+for i in range(len(result[1])):
+    for j in range(len(result[1][0])):
+        text = ax.text(j, i, int(result[1][i][j] * 10**4) / 10, ha="center", va="center", color="w")
 plt.show()
