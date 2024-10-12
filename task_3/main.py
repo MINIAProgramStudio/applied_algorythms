@@ -25,23 +25,25 @@ def test_matrixes(ver_range, p_percent_range, tests):
             dfs_time = 0
             w_time = 0
             for test in column:
-                lists = test.to_ll()
-                dfs_start = time.time()
-                GraphAlgorythm.recursive_dfs_starter(lists)
-                dfs_end = time.time()
-                dfs_time += dfs_end-dfs_start
+
 
                 w_start = time.time()
                 GraphAlgorythm.warshall_starter(test)
                 w_end = time.time()
                 w_time += w_end - w_start
+
+                lists = test.to_ll()
+                dfs_start = time.time()
+                GraphAlgorythm.recursive_dfs_starter(lists)
+                dfs_end = time.time()
+                dfs_time += dfs_end - dfs_start
             dfs_map[-1].append(dfs_time/tests)
             w_map[-1].append(w_time/tests)
     return (dfs_map, w_map)
 
-ver = [i**2 for i in range(3,25,3)]
-p = range(25,101,25)
-result = test_matrixes(ver, p, 1)
+ver = [i**2 for i in range(3,22,3)]
+p = range(0,101,25)
+result = test_matrixes(ver, p, 10)
 
 fig, ax = plt.subplots()
 
