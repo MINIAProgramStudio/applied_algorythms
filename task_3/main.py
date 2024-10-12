@@ -43,7 +43,7 @@ def test_matrixes(ver_range, p_percent_range, tests):
 
 ver = [i**2 for i in range(3,22,3)]
 p = range(0,101,25)
-result = test_matrixes(ver, p, 10)
+result = test_matrixes(ver, p, 1)
 
 fig, ax = plt.subplots()
 
