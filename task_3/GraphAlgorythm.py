@@ -1,17 +1,17 @@
 import copy
 
 def recursive_dfs(lists, memory, vertice):
-    if memory[vertice] is None:
-        memory[vertice] = False
+    if not memory[vertice]:
+        memory[vertice] = True
         selected_node = lists[vertice].first_node
         while not selected_node is None:
             memory = recursive_dfs(lists, memory, selected_node.value)
             selected_node = selected_node.next_node
-    memory[vertice] = True
+    # memory[vertice] = True
     return memory
 
 def recursive_dfs_starter(lists):
-    memory = [None]*len(lists) # None for unvisited, False for pending, True for visited
+    memory = [False]*len(lists) # None for unvisited, False for pending, True for visited
     memory = recursive_dfs(lists,memory,0)
     if all(memory):
         return True
